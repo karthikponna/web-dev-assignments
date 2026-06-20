@@ -6,8 +6,33 @@
 // Any subsequent calls should not re-execute `fn` and should instead invoke
 // the callback with the same result (or error) from the first invocation.
 
-function once(fn) {
 
+
+function once(fn) {
+    let hasRun = false;
+    let savedError;
+    let savedResult;
+
+    return function(...args) {
+        const callback = args.pop();
+
+        if (hasRun) {
+            callback(savedError, savedResult);
+            return;
+        }
+
+        hasRun = true;
+
+        fn(...args, function (err, data) {
+            savedError = err;
+            savedResult = data;
+
+            callback(err, data);
+
+        })
+
+
+    }
 }
 
 module.exports = once;

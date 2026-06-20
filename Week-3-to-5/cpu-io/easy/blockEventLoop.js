@@ -11,6 +11,14 @@
 // 2. Use a `while` loop with `Date.now()` or `performance.now()`.
 // 3. This is a teaching tool to show how NOT to write async code.
 
-function blockEventLoop(ms) {}
+const { performance } = require("perf_hooks");
+
+function blockEventLoop(ms) {
+    const start = performance.now();
+
+    while (performance.now() - start < ms) {
+
+    }
+}
 
 module.exports = blockEventLoop;

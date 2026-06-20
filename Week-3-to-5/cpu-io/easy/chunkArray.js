@@ -1,18 +1,25 @@
-// Problem Description – Chunk Array
+// Problem Description – Event Loop Execution Order
 //
-// When dealing with large datasets, it's often necessary to process them
-// in smaller batches (chunks) to avoid overloading the CPU or I/O.
+// You are given a script that mixes synchronous code, Promises (microtasks),
+// and timers (macrotasks).
 //
-// Your task is to implement a function `chunkArray(array, size)` that
-// splits an array into sub-arrays of a maximum specified size.
+// Your task is to understand and predict the order in which the logs
+// are printed to the console.
 //
-// Requirements:
-// 1. The function should return a new array containing the chunks.
-// 2. The last chunk might be smaller than the specified size.
-// 3. Handle edge cases like empty arrays or chunk size <= 0.
-//
-// This is a prerequisite for common patterns like batching API calls.
 
-function chunkArray(array, size) {}
 
-module.exports = chunkArray;
+function eventLoopRace() {
+    console.log("1: Synchronous");
+
+    setTimeout(function () {
+        console.log("2: Macrotask (I/O)");
+    }, 0);
+
+    Promise.resolve().then(function () {
+        console.log("3: Microtask (Promise)");
+    });
+
+    console.log("4: Synchronous");
+}
+
+module.exports = eventLoopRace;

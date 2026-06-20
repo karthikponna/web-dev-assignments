@@ -8,6 +8,18 @@
 //
 
 
-function eventLoopRace() {}
+function eventLoopRace() {
+    console.log("1: Synchronous");
+
+    setTimeout(function () {
+        console.log("2: Macrotask (I/O)");
+    }, 0);
+
+    Promise.resolve().then(function () {
+        console.log("3: Microtask (Promise)");
+    });
+
+    console.log("4: Synchronous");
+}
 
 module.exports = eventLoopRace;
